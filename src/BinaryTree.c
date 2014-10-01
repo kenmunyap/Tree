@@ -4,153 +4,71 @@
 #include "Traversal.h"
 
 
-
 void binaryTreeTraverseInOrder(Node *root){
 	Stack *stackPtr = stackNew();
 	printf("created a stack\n");
 	Node *currentNode = root;
 	Node *saveNode = root;
-	
-
+	currentNode->state = ENTERED_NODE;	
 while(1){
-	if(currentNode->left == NULL && currentNode->right == NULL){
-		display(currentNode->data);
-		currentNode = stackPop(stackPtr);
-	}else if(currentNode->left != NULL){
-		currentNode->state = ENTERED_NODE;
-		stackPush(stackPtr,currentNode);
-		currentNode = currentNode->left;
-		currentNode->state = ENTERED_NODE;
-	}else if(currentNode->right != NULL){
-		currentNode->state = ENTERED_NODE;
-		stackPush(stackPtr,currentNode);
-		currentNode = currentNode->right;
-		currentNode->state = ENTERED_NODE;
-	}else{
-		currentNode->state = UNKNOWN_NODE_STATE;
-	}
-
-
-
-	if(currentNode != NULL){
-		if(currentNode->state == ENTERED_NODE){
-			if(currentNode->right == NULL && currentNode->left == NULL){
-				display(currentNode->data);
-				saveNode->state = VISITED_LEFT_NODE;
-				currentNode = stackPop(stackPtr);
-				if(currentNode->left || saveNode->left){
-					currentNode->state = VISITED_LEFT_NODE;
-				}else{
+		//Initial
+		if(currentNode != NULL){
+			if((currentNode->left == NULL) && (currentNode->right == NULL) && (currentNode->state == ENTERED_NODE)){
+					display(currentNode->data);
 					currentNode->state = VISITED_RIGHT_NODE;
-				}
-			}else if(currentNode->left  != NULL){
+			}else if(currentNode->left != NULL && currentNode->state == ENTERED_NODE){
 					currentNode->state = ENTERED_NODE;
 					stackPush(stackPtr,currentNode);
 					currentNode = currentNode->left;
-					saveNode = saveNode->left;
 					currentNode->state = ENTERED_NODE;
-			}
-		}
-	}
-	
-	
-	
-	if(currentNode != NULL){
-		if(currentNode->state == VISITED_LEFT_NODE){
-			if(currentNode->right == NULL){
-				display(currentNode->data);
-				currentNode = stackPop(stackPtr);
-			}else if(currentNode->right != NULL){
-				display(currentNode->data);
-				saveNode->state = VISITED_LEFT_NODE;
-				stackPush(stackPtr,currentNode);
-				currentNode = currentNode->right;
-				saveNode = saveNode->right;
-				currentNode->state = ENTERED_NODE;
-			}
-		}
-	}
-	
-	if(currentNode != NULL){
-		if(currentNode->state == ENTERED_NODE){
-			if(currentNode->right == NULL && currentNode->left == NULL){
-				display(currentNode->data);
-				saveNode->state = VISITED_LEFT_NODE;
-				currentNode = stackPop(stackPtr);
-				if(saveNode->left){
+			}else if(currentNode->right != NULL && currentNode->state == ENTERED_NODE){
+					display(currentNode->data);
 					currentNode->state = VISITED_LEFT_NODE;
-				}else{
+			}
+		}
+		
+	
+		if(currentNode != NULL){
+			if(currentNode->state == VISITED_RIGHT_NODE){
+					currentNode = stackPop(stackPtr);
+				if(currentNode == NULL){
+					break;
+				}else if(currentNode->state == ENTERED_NODE){
+					display(currentNode->data);
+					currentNode->state = VISITED_LEFT_NODE;
+				}else if(currentNode->state == VISITED_LEFT_NODE){
 					currentNode->state = VISITED_RIGHT_NODE;
+				}
+			}	
+		}
+		
+		if(currentNode != NULL){
+			if(currentNode->state == VISITED_LEFT_NODE){
+				if(currentNode->right == NULL){
+					currentNode->state = VISITED_RIGHT_NODE;
+				}else if(currentNode->right != NULL){
+					currentNode->state = VISITED_LEFT_NODE;
+					stackPush(stackPtr,currentNode);
+					currentNode = currentNode->right;
+					currentNode->state = ENTERED_NODE;
 				}
 			}
 		}
-	}
-	
-	if(currentNode != NULL){
-		if(currentNode->state == VISITED_LEFT_NODE){
-			if(currentNode->right == NULL){
-				display(currentNode->data);
-				currentNode = stackPop(stackPtr);
-				currentNode->state = VISITED_LEFT_NODE;
-			}else if(currentNode->right != NULL){
-				display(currentNode->data);
-				saveNode->state = VISITED_LEFT_NODE;
-				stackPush(stackPtr,currentNode);
-				currentNode = currentNode->right;
-				saveNode = saveNode->right;
-				currentNode->state = ENTERED_NODE;
-				
-			}
-		}
-	}
-	
-	if(currentNode != NULL){
-		if(currentNode->state == VISITED_LEFT_NODE){
-			if(currentNode->right == NULL){
-				display(currentNode->data);
-				currentNode = stackPop(stackPtr);	
-			}else if(currentNode->right != NULL){
-				display(currentNode->data);
-				saveNode->state = VISITED_LEFT_NODE;
-				stackPush(stackPtr,currentNode);
-				currentNode = currentNode->right;
-				saveNode = saveNode->right;
-				currentNode->state = ENTERED_NODE;
-				
-			}
-		}
-	}
-
 		
-	if(currentNode != NULL){
-		if(currentNode->state == VISITED_RIGHT_NODE){
-			if(currentNode->left == NULL){
-				display(currentNode->data);
-				currentNode = stackPop(stackPtr);
-			}
-			if(saveNode->state == VISITED_LEFT_NODE && root->data == currentNode->data){
-				currentNode = stackPop(stackPtr);
-			}
-		}
-	}
-	
-	
 
-	 
-	if(currentNode == NULL){
-		break;
-	}
+		if(currentNode == NULL){
+			break;
+		}
+	
 
 }
-	
-	
-
-
-	
 	stackDel(stackPtr);
 	printf("deleted a stack\n");
-
 }
+
+
+
+
 
 
 

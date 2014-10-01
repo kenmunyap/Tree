@@ -65,10 +65,10 @@ void test_binary_tree_with_3_nodes_parent_and_left_child(void){
 	
 	printf("Starts test_binary_tree_with_3_nodes_parent_and_right_child\n");
 	stackNew_ExpectAndReturn(&stack);
+	display_Expect(13);
 	stackPush_Expect(&stack,&root);
 	display_Expect(5);
 	stackPop_ExpectAndReturn(&stack,&root);
-	display_Expect(13);
 	stackPop_ExpectAndReturn(&stack,NULL);
 	
 	stackDel_Expect(&stack);
