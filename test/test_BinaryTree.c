@@ -259,3 +259,51 @@ void test_binary_tree_with_7_nodes_parent_and_left_and_right_trunk_and_left_chil
 	
 	binaryTreeTraverseInOrder(&root);
 }
+
+
+// 
+
+/**
+*	 6
+*	/ \
+*  -   - 
+*/
+void test_binary_tree_with_1_node_sequnce(void){
+	printf("Start \n");
+	Node root = {NULL, NULL, 6};
+	printf("END \n");
+	
+	binaryTreePrintInOrder(&root);
+	
+}
+
+/**
+*	10
+*	/ \
+*  -   5 
+*/
+void test_binary_tree_with_2_nodes_parent_and_right_child_sequnce(void){
+	printf("Start \n");
+	Node node5 = {NULL,NULL,5};
+ 	Node root = {NULL,&node5, 13};
+	printf("END \n");
+
+	binaryTreePrintInOrder(&root);
+	
+}
+
+/**
+*	 8
+*	/ \
+*  6   12 
+*/
+void test_binary_tree_with_3_nodes_parent_and_left_child_and_right_child_sequnce(void){
+	printf("Start \n");
+	Node leftChild = {NULL,NULL,5};
+	Node rightChild = {NULL,NULL,20};
+	Node root = {&leftChild,&rightChild,10};
+		printf("END \n");
+
+	
+	binaryTreePrintInOrder(&root);
+}
